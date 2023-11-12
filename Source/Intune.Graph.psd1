@@ -12,7 +12,7 @@
 RootModule = 'Intune.Graph.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.16'
+ModuleVersion = '0.0.20'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -98,16 +98,19 @@ AliasesToExport = @()
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
 
+    #Name of this module
+    Name = 'Intune.Graph'
+
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = 'Intune','Microsoft Graph','Graph','Configuration Profile','PowerShell'
 
         # A URL to the license for this module.
         # LicenseUri = ''
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/kenjohnson03/Intune.Graph'
 
         # A URL to an icon representing this module.
         # IconUri = ''
