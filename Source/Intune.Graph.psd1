@@ -12,7 +12,7 @@
 RootModule = 'Intune.Graph.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.20'
+ModuleVersion = '0.0.26'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -104,7 +104,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'Intune','Microsoft Graph','Graph','Configuration Profile','PowerShell'
+        Tags = 'Intune','Graph','ConfigurationProfile','PowerShell'
 
         # A URL to the license for this module.
         # LicenseUri = ''
