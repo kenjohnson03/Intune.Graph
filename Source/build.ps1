@@ -3,6 +3,7 @@ param (
     [string]$NUGET_API_KEY,
     [Parameter(Mandatory, ParameterSetName="SkipReadMe", HelpMessage="Skip updating README.md")]
     [Parameter(ParameterSetName="SkipPublishModule", HelpMessage="Skip updating README.md")]
+    [Parameter(ParameterSetName="Publish", HelpMessage="Skip updating README.md")]
     [switch]$SkipReadMe,
     [Parameter(Mandatory, ParameterSetName="SkipPublishModule", HelpMessage="Skip publishing module to PSGallery")]
     [Parameter(ParameterSetName="SkipReadMe", HelpMessage="Skip publishing module to PSGallery")]
