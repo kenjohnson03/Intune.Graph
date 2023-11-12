@@ -18,6 +18,13 @@ $ModuleManifest = Import-PowerShellDataFile $ModuleManifestPath
 $ModuleVersion = $ModuleManifest.ModuleVersion.Split(".")
 $UpdatedModuleVersion = "{0}.{1}.{2}" -f $ModuleVersion[0],$ModuleVersion[1],([int]$ModuleVersion[2]+1)
 Update-ModuleManifest -Path $ModuleManifestPath -ModuleVersion $UpdatedModuleVersion
+Update-ModuleManifest -Path $ModuleManifestPath -Author "Ken Johnson"
+Update-ModuleManifest -Path $ModuleManifestPath -CompanyName "Ken Johnson"
+Update-ModuleManifest -Path $ModuleManifestPath -Description "IntuneGraph is a PowerShell module that makes it easy to work with the Microsoft Graph API from PowerShell. It handles the HTTP connection, and provides an object-oriented wrapper around the Graph API endpoints. It also provides some additional functionality that makes working with Intune in the Graph API from PowerShell a breeze."
+#Update-ModuleManifest -Path $ModuleManifestPath -RequiredModules @()
+Update-ModuleManifest -Path $ModuleManifestPath -Tags 'Intune','Graph','ConfigurationProfile','PowerShell'
+Update-ModuleManifest -Path $ModuleManifestPath -ProjectUri "https://github.com/kenjohnson03/Intune.Graph"
+Update-ModuleManifest -Path $ModuleManifestPath -ReleaseNotes ""
 
 if($false -eq $SkipReadMe)
 {
@@ -41,14 +48,13 @@ Copy-Item -Path "$scriptPath\Intune.Graph.psm1" -Destination $BuildPath
 if($false -eq $SkipPublishModule)
 {
     $ModuleManifest = Import-PowerShellDataFile $ModuleManifestPath
-    $PublishData = $ModuleManifest.PrivateData.PSData
+    $PublishData = $ModuleManifest.PrivateData
     $PublishParameters = @{
-        Name = $PublishData.Name
         Path = $BuildPath
         NuGetApiKey = $NUGET_API_KEY
         Repository = "PSGallery"
-        Tags = $PublishData.Tags
-        ProjectUri = $PublishData.ProjectUri
+        Tags = $PublishData.PSData.Tags
+        ProjectUri = $PublishData.PSData.ProjectUri
         Force = $true
     }
     # Publish module
