@@ -675,6 +675,32 @@ function New-IntuneFilter
     }
 }
 
+function Remove-IntuneFilter
+{
+    param (
+        [Parameter(Mandatory, Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName="id")]
+        [string]$Id,
+        [ValidateSet("Global", "USGov", "USGovDoD")]
+        [string]$Environment="Global"
+    )
+    begin {
+        if($false -eq (Initialize-IntuneAccess -Scopes @("DeviceManagementConfiguration.ReadWrite.All") -Modules @("Microsoft.Graph.Authentication") -Environment $Environment))
+        {
+            return
+        }
+        
+        switch ($Environment) {
+            "USGov" { $uri = "https://graph.microsoft.us" }
+            "USGovDoD" { $uri = "https://dod-graph.microsoft.us" }
+            Default { $uri = "https://graph.microsoft.com" }
+        }
+        $graphVersion = "beta"
+    }
+    process {
+        Invoke-MgRestMethod -Method Delete -Uri "$uri/$graphVersion/deviceManagement/assignmentFilters/$Id" -OutputType Json | ConvertFrom-Json
+    }
+}
+
 function Get-IntuneTag 
 {
     param(
@@ -926,6 +952,7 @@ Export-ModuleMember -Function "Get-IntuneConfigurationProfile",
     "Get-IntuneConfigurationProfileAssignments",
     "Get-IntuneFilter",
     "New-IntuneFilter",
+    "Remove-IntuneFilter",
     "Get-IntuneTag",
     "New-IntuneTag",
     "Remove-IntuneTag",
