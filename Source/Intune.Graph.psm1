@@ -194,6 +194,32 @@ function New-IntuneConfigurationProfile
     }
 }
 
+function Remove-IntuneConfigurationProfile
+{
+    param (
+        [Parameter(Mandatory, Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName="id")]
+        [string]$Id,
+        [ValidateSet("Global", "USGov", "USGovDoD")]
+        [string]$Environment="Global"
+    )
+    begin {
+        if($false -eq (Initialize-IntuneAccess -Scopes @("DeviceManagementConfiguration.ReadWrite.All") -Modules @("Microsoft.Graph.Authentication") -Environment $Environment))
+        {
+            return
+        }
+        
+        switch ($Environment) {
+            "USGov" { $uri = "https://graph.microsoft.us" }
+            "USGovDoD" { $uri = "https://dod-graph.microsoft.us" }
+            Default { $uri = "https://graph.microsoft.com" }
+        }
+        $graphVersion = "beta"
+    }
+    process {
+        Invoke-MgRestMethod -Method Delete -Uri "$uri/$graphVersion/deviceManagement/configurationPolicies/$Id" -OutputType Json | ConvertFrom-Json
+    }
+}
+
 function Get-IntuneConfigurationProfileSettings
 {
     param(
@@ -593,7 +619,6 @@ function Get-IntuneFilter
         return
     }
 }
-
 function New-IntuneFilter
 {
     param(
@@ -866,4 +891,4 @@ function Backup-IntuneConfigurationProfile
     }
 }
 
-Export-ModuleMember -Function "Get-IntuneConfigurationProfile","New-IntuneConfigurationProfile","Get-IntuneConfigurationProfileSettings","Compare-IntuneConfigurationProfileSettings","Sync-IntuneConfigurationProfileSettings","Get-IntuneConfigurationProfileAssignments","Get-IntuneFilter","New-IntuneFilter","Get-IntuneTag","New-IntuneTag","Backup-IntuneConfigurationProfile"
+Export-ModuleMember -Function "Get-IntuneConfigurationProfile","New-IntuneConfigurationProfile","Remove-IntuneConfigurationProfile","Get-IntuneConfigurationProfileSettings","Compare-IntuneConfigurationProfileSettings","Sync-IntuneConfigurationProfileSettings","Get-IntuneConfigurationProfileAssignments","Get-IntuneFilter","New-IntuneFilter","Get-IntuneTag","New-IntuneTag","Backup-IntuneConfigurationProfile"
