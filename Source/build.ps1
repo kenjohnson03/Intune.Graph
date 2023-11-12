@@ -40,6 +40,17 @@ Copy-Item -Path "$scriptPath\Intune.Graph.psm1" -Destination $BuildPath
 
 if($false -eq $SkipPublishModule)
 {
+    $ModuleManifest = Import-PowerShellDataFile $ModuleManifestPath
+    $PublishData = $ModuleManifest.PrivateData.PSData
+    $PublishParameters = @{
+        Name = $PublishData.Name
+        Path = $BuildPath
+        NuGetApiKey = $NUGET_API_KEY
+        Repository = "PSGallery"
+        Tags = $PublishData.Tags
+        ProjectUri = $PublishData.ProjectUri
+        Force = $true
+    }
     # Publish module
-    Publish-Module -Path $BuildPath -NuGetApiKey $NUGET_API_KEY -Repository PSGallery -Force
+    Publish-Module @PublishParameters
 }
