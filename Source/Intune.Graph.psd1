@@ -12,7 +12,7 @@
 RootModule = 'Intune.Graph.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.15'
+ModuleVersion = '0.0.16'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = 'Ken Johnson'
 Copyright = '(c) Ken Johnson. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'IntuneGraph is a PowerShell module that makes it easy to work with the Microsoft Graph API from PowerShell. It handles the HTTP connection, and provides an object-oriented wrapper around the Graph API endpoints. It also provides some additional functionality that makes working with Intune in the Graph API from PowerShell a breeze.'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
