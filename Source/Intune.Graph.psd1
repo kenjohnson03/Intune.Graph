@@ -69,13 +69,22 @@ RequiredModules = @('Microsoft.Graph.Authentication')
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Get-IntuneConfigurationProfile', 'New-IntuneConfigurationProfile', 
-               'Get-IntuneConfigurationProfileSettings', 
-               'Compare-IntuneConfigurationProfileSettings', 
-               'Sync-IntuneConfigurationProfileSettings', 
-               'Get-IntuneConfigurationProfileAssignments', 'Get-IntuneFilter', 
-               'New-IntuneFilter', 'Get-IntuneTag', 'New-IntuneTag', 
-               'Backup-IntuneConfigurationProfile'
+FunctionsToExport = "Get-IntuneConfigurationProfile",
+    "New-IntuneConfigurationProfile",
+    "Remove-IntuneConfigurationProfile",
+    "Get-IntuneConfigurationProfileSettings",
+    "Compare-IntuneConfigurationProfileSettings",
+    "Sync-IntuneConfigurationProfileSettings",
+    "Get-IntuneConfigurationProfileAssignments",
+    "New-IntuneConfigurationProfileAssignment",
+    "Add-IntuneConfigurationProfileAssignment",
+    "Get-IntuneFilter",
+    "New-IntuneFilter",
+    "Remove-IntuneFilter",
+    "Get-IntuneTag",
+    "New-IntuneTag",
+    "Remove-IntuneTag",
+    "Backup-IntuneConfigurationProfile"
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
