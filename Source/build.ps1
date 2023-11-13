@@ -60,3 +60,6 @@ if($false -eq $SkipPublishModule)
     # Publish module
     Publish-Module @PublishParameters
 }
+
+# Remove build directory
+Remove-Item -Path "$scriptpath\bin" -Recurse -Force
