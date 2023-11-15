@@ -692,10 +692,10 @@ function Sync-IntuneConfigurationProfileSettings
     }
     process {        
         # Get the settings from the source configuration
-        $sourceConfiguration = Get-IntuneConfiguration -ConfigurationId $SourceConfigurationId -Environment $Environment
+        $sourceConfiguration = Get-IntuneConfigurationProfile -Id $SourceConfigurationId -Environment $Environment
         
         # Get the destination configuration
-        $destinationConfiguration = Get-IntuneConfiguration -ConfigurationId $DestinationConfigurationId -Environment $Environment
+        $destinationConfiguration = Get-IntuneConfigurationProfile -Id $DestinationConfigurationId -Environment $Environment
 
         # Check that the technologies match
         if($sourceConfiguration.technologies -ne $destinationConfiguration.technologies)
@@ -711,7 +711,7 @@ function Sync-IntuneConfigurationProfileSettings
             return
         }
 
-        $sourceSettings = Get-IntuneConfigurationSettings -ConfigurationId $SourceConfigurationId -Environment $Environment
+        $sourceSettings = Get-IntuneConfigurationProfileSettings -Id $SourceConfigurationId -Environment $Environment
 
         $updatedSettings = @()
         foreach($setting in $sourceSettings)
