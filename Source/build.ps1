@@ -44,6 +44,8 @@ $BuildPath = "$scriptPath\bin\Intune.Graph\$UpdatedModuleVersion"
 New-Item -ItemType Directory -Force -Path $BuildPath | Out-Null
 Copy-Item -Path "$scriptPath\Intune.Graph.psd1" -Destination $BuildPath
 Copy-Item -Path "$scriptPath\Intune.Graph.psm1" -Destination $BuildPath
+Get-ChildItem -Path "$scriptPath\" -Recurse -Directory | Copy-Item -Destination $BuildPath
+Get-ChildItem -Path "$scriptPath\" -Recurse -Include *.ps1 | Copy-Item -Destination $BuildPath 
 
 if($false -eq $SkipPublishModule)
 {
