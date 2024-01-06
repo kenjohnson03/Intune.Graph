@@ -42,10 +42,10 @@ function Compare-IntuneConfigurationProfileSettings
     }
     process {
         # Get the settings from the source configuration
-        $sourceConfiguration = Get-IntuneConfigurationProfileSettings -ConfigurationId $SourceConfigurationId -Environment $Environment
+        $sourceConfiguration = Get-IntuneConfigurationProfile -Id $SourceConfigurationId -Environment $Environment
         
         # Get the destination configuration
-        $destinationConfiguration = Get-IntuneConfigurationProfileSettings -ConfigurationId $DestinationConfigurationId -Environment $Environment
+        $destinationConfiguration = Get-IntuneConfigurationProfile -Id $DestinationConfigurationId -Environment $Environment
 
         # Check that the technologies match
         if($sourceConfiguration.technologies -ne $destinationConfiguration.technologies)
@@ -62,12 +62,12 @@ function Compare-IntuneConfigurationProfileSettings
         }
 
         # Get the settings from the source configuration
-        $sourceSettings = Get-IntuneConfigurationSettings -ConfigurationId $SourceConfigurationId -Environment $Environment
+        $sourceSettings = Get-IntuneConfigurationProfileSettings -Id $SourceConfigurationId -Environment $Environment
         $sourceJson = $sourceSettings | ForEach-Object { $_.settingInstance | ConvertTo-Json -Depth 50 } 
         $sourceDefinitionIds = $sourceSettings | ForEach-Object { $_.settingInstance } | Select-Object -ExpandProperty settingDefinitionId
 
         # Get the destination configuration settings
-        $destinationSettings = Get-IntuneConfigurationSettings -ConfigurationId $DestinationConfigurationId -Environment $Environment
+        $destinationSettings = Get-IntuneConfigurationProfileSettings -Id $DestinationConfigurationId -Environment $Environment
         $destinationJson = $destinationSettings | ForEach-Object { $_.settingInstance | ConvertTo-Json -Depth 50 }
         $destinationDefinitionIds = $destinationSettings | ForEach-Object { $_.settingInstance } | Select-Object -ExpandProperty settingDefinitionId
 
@@ -75,19 +75,7 @@ function Compare-IntuneConfigurationProfileSettings
 
         # Compare the settings and remove any that are missing from the source configuration
         $settingsToAdd = @()
-        # foreach($s in $sourceJson)
-        # {
-        #     if($destinationJson -notcontains $s)
-        #     {
-        #         $settingDefinitionId = $s | ConvertFrom-Json -Depth 50 | Select-Object -ExpandProperty settingDefinitionId
-        #         $settingDefinition = $sourceSettings | Where-Object { $_.settingInstance.settingDefinitionId -eq $settingDefinitionId }
-        #         $newSetting = [PSCustomObject]@{                
-        #             "@odata.type" = "#microsoft.graph.deviceManagementConfigurationSetting"  
-        #             settingInstance = $settingDefinition.settingInstance                
-        #         }
-        #         $settingsToAdd += $newSetting
-        #     }
-        # }
+
         foreach($s in $sourceDefinitionIds)
         {
             if($destinationDefinitionIds -notcontains $s)
@@ -112,19 +100,7 @@ function Compare-IntuneConfigurationProfileSettings
 
 
         $settingsToRemove = @()
-        # foreach($s in $destinationJson)
-        # {
-        #     if($sourceJson -notcontains $s)
-        #     {
-        #         $settingDefinitionId = $s | ConvertFrom-Json -Depth 50 | Select-Object -ExpandProperty settingDefinitionId
-        #         $settingDefinition = $destinationSettings | Where-Object { $_.settingInstance.settingDefinitionId -eq $settingDefinitionId }
-        #         $newSetting = [PSCustomObject]@{                
-        #             "@odata.type" = "#microsoft.graph.deviceManagementConfigurationSetting"  
-        #             settingInstance = $settingDefinition.settingInstance                
-        #         }
-        #         $settingsToAdd += $newSetting
-        #     }
-        # }
+
         foreach($s in $destinationDefinitionIds)
         {
             if($sourceDefinitionIds -notcontains $s)

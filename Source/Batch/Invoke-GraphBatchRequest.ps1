@@ -49,6 +49,18 @@ function Invoke-GraphBatchRequest
     process {
         $requestUri = "$uri/$graphVersion/`$batch"
 
+        if($BatchRequest.Count -gt 20)
+        {
+            Write-Host "Batch requests are limited to 20 requests. Only the first 20 requests will be processed."
+            $BatchRequest = $BatchRequest[0..19]
+        }
+        
+        if($BatchRequest | Select-Object -ExpandProperty id | Group-object | Where-Object {$_.Count -gt 1})
+        {
+            Write-Host "Batch requests must have unique ids. Please ensure that all requests have a unique id."
+            return
+        }
+
         $body = @{
             requests = [array]$BatchRequest
         }

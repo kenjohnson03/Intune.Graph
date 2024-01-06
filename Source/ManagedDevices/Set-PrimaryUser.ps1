@@ -53,20 +53,11 @@ function Set-IntuneDevicePrimaryUser
 
         if($BatchRequestOutput)
         {
-            $batch = @{}
-            $batch.id = "1"
-            $batch.method = "POST"
-            $batch.url = "/deviceManagement/managedDevices('$DeviceId')/users/`$ref"
-            $batch.body = $body
-            $batch.headers = @{
-                'Content-Type' = 'application/json'
-            }
-            return $batch
+            return New-GraphBatchRequest -Method POST -Uri "/deviceManagement/managedDevices('$DeviceId')/users/`$ref" -Body $body -Headers @{'Content-Type' = 'application/json'}
         }       
         else 
         {
-            $response = Invoke-MgRestMethod -Method Post -Uri $requestUri -Body ($body | ConvertTo-Json -Depth 50) -ContentType "application/json" -OutputType Json | ConvertFrom-Json
-            return $response
+            return Invoke-MgRestMethod -Method Post -Uri $requestUri -Body ($body | ConvertTo-Json -Depth 50) -ContentType "application/json" -OutputType Json | ConvertFrom-Json
         }        
     }
 }
