@@ -7,6 +7,7 @@ function New-IntuneDeviceConfigurationWindows81TrustedRootCertificate
         [string]$Description,
         [Parameter(Mandatory)]
         [string]$Base64TrustedRootCertificate,
+        [string]$DestinationStore="computerCertStoreRoot",
         [string]$FileName,
         [string[]]$RoleScopeTagIds=@("0"),
         [ValidateSet("Global", "USGov", "USGovDoD")]
@@ -34,7 +35,7 @@ function New-IntuneDeviceConfigurationWindows81TrustedRootCertificate
         $body.'@odata.type' = "#microsoft.graph.windows81TrustedRootCertificate"
         $body.trustedRootCertificate = $Base64TrustedRootCertificate
         $body.displayName = $Name
-        $body.destinationStore = "computerCertStoreRoot"
+        $body.destinationStore = $DestinationStore
 
         if($FileName)
         {
