@@ -38,6 +38,7 @@
 function New-IntuneConfigurationProfile
 {
     param(
+        [Parameter(Mandatory)]
         [string]$Name,
         [string]$Description,
         [ValidateSet(
@@ -45,7 +46,8 @@ function New-IntuneConfigurationProfile
             "iOS"          
         )]
         [string]$Platform,
-        [string]$Technologies="mdm",        
+        [string]$Technologies="mdm", 
+        [Parameter(Mandatory)]
         [psobject[]]$Settings,
         [string[]]$RoleScopeTagIds=@("0"),
         [ValidateSet("Global", "USGov", "USGovDoD")]
