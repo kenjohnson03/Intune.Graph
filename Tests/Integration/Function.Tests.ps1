@@ -1,4 +1,4 @@
-#Requires -Version 5.0
+#Requires -Version 7.0
 #Requires -Modules Microsoft.Graph.Authentication, Pester
 
 
@@ -27,13 +27,13 @@ Describe 'New-IntuneConfigurationProfile' {
 
 Describe 'Get-IntuneConfigurationProfile' {
     It 'Gets all configuration profiles' {
-        $Profiles = Get-IntuneConfigurationProfile -All
-        $Profiles | Should -Not -BeNullOrEmpty
+        Get-IntuneConfigurationProfile -All | 
+            Should -Not -BeNullOrEmpty
     }
 
     It 'Gets a specific configuration profile' {
-        $Profile = Get-IntuneConfigurationProfile -Name "PesterTest"
-        $Profile | Should -Not -BeNullOrEmpty
+        Get-IntuneConfigurationProfile -Name "PesterTest" | 
+            Should -Not -BeNullOrEmpty
     }
 }
 
