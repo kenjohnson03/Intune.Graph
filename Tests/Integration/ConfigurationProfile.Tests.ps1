@@ -117,3 +117,30 @@ Describe "Backup-IntuneConfigurationProfile" {
                 Should -Not -Throw
     }
 }
+
+Describe "Sync-IntuneConfigurationProfileSettings" {
+    It "Syncs two configuration profiles" {
+        $settingsJson = @"
+        {
+            "@odata.type": "#microsoft.graph.deviceManagementConfigurationSetting",
+            "settingInstance": {
+            "@odata.type": "#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance",
+            "settingDefinitionId": "device_vendor_msft_policy_config_abovelock_allowcortanaabovelock",
+            "settingInstanceTemplateReference": null,
+            "choiceSettingValue": {
+                "settingValueTemplateReference": null,
+                "value": "device_vendor_msft_policy_config_abovelock_allowcortanaabovelock_1",
+                "children": []
+            }   
+        }         
+        }
+"@
+        $settings = ConvertFrom-Json $settingsJson
+        $newConfig = New-IntuneConfigurationProfile -Name "PesterTest" -Description "Desc" -Platform windows10 -Technologies "mdm" -RoleScopeTagIds @('0') -Settings @($settings) 
+        $newConfig2 = New-IntuneConfigurationProfile -Name "PesterTest2" -Description "Desc" -Platform windows10 -Technologies "mdm" -RoleScopeTagIds @('0') -Settings @($settings) 
+
+        { Sync-IntuneConfigurationProfileSettings -SourceConfigurationId $newConfig.id -DestinationConfigurationId $newConfig2.id | 
+            Should -BeNullOrEmpty } | 
+                Should -Not -Throw
+    }
+}
