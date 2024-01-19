@@ -101,12 +101,12 @@ function Backup-IntuneConfigurationProfile
 
         if($Name)
         {
-            $configurations += Get-IntuneConfigurationProfile -ConfigurationName $Name -Environment $Environment
+            $configurations += Get-IntuneConfigurationProfile -Name $Name -Environment $Environment
         }
 
         if($Id)
         {
-            $configurations += Get-IntuneConfigurationProfile -ConfigurationId $Id -Environment $Environment
+            $configurations += Get-IntuneConfigurationProfile -Id $Id -Environment $Environment
         }
 
         $backupConfigurations = @()
@@ -150,7 +150,7 @@ function Backup-IntuneConfigurationProfile
             }
             $backupConfigurations += $backupConfiguration
         }
-        // TODO: Add Security Group Names to the backup
+        # TODO: Add Security Group Names to the backup
 
         $backup = [PSCustomObject]@{
             configurations = $backupConfigurations
