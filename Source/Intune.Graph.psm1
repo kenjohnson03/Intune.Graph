@@ -63,20 +63,27 @@ function Initialize-IntuneAccess
     return $true
 }
 
-Export-ModuleMember -Function "Get-IntuneConfigurationProfile",
-    "New-IntuneConfigurationProfile",
-    "Remove-IntuneConfigurationProfile",
-    "Get-IntuneConfigurationProfileSettings",
-    "Compare-IntuneConfigurationProfileSettings",
-    "Sync-IntuneConfigurationProfileSettings",
-    "Get-IntuneConfigurationProfileAssignments",
-    "New-IntuneConfigurationProfileAssignment",
+Export-ModuleMember -Function "Invoke-GraphBatchRequest",
+    "New-GraphBatchRequest",
     "Add-IntuneConfigurationProfileAssignment",
+    "Backup-IntuneConfigurationProfile",
+    "Compare-IntuneConfigurationProfileSettings",
+    "Get-IntuneConfigurationProfile",
+    "Get-IntuneConfigurationProfileSettings",
+    "Get-IntuneConfigurationProfileAssignments",
+    "New-IntuneConfigurationProfile",
+    "New-IntuneConfigurationProfileAssignment",
+    "Remove-IntuneConfigurationProfile",
+    "Sync-IntuneConfigurationProfileSettings",
+    "Update-IntuneConfigurationProfile",
+    "Get-IntuneDeviceConfiguration",
+    "New-IntuneDeviceConfigurationWindows81TrustedRootCertificate",
     "Get-IntuneFilter",
     "New-IntuneFilter",
     "Remove-IntuneFilter",
+    "Set-PrimaryUser",
     "Get-IntuneTag",
     "New-IntuneTag",
-    "Remove-IntuneTag",
-    "Backup-IntuneConfigurationProfile",
-    "Invoke-GraphBatchRequest"
+    "Remove-IntuneTag"
+    
+    
