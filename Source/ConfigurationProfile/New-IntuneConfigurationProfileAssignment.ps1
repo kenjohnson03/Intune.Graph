@@ -54,7 +54,13 @@ function New-IntuneConfigurationProfileAssignment
     process 
     {
         $type = $IncludeExcludeGroup -eq "include" ? "#microsoft.graph.groupAssignmentTarget" : "#microsoft.graph.exclusionGroupAssignmentTarget"
-        $AssignedFilterType = [string]::IsNullOrEmpty($FilterType) ? "none" : $FilterType
+
+        if([string]::IsNullOrEmpty($FilterType))
+        {
+            $AssignedFilterType = "none"
+        }else {
+            $AssignedFilterType = $FilterType
+        }
 
         if([string]::IsNullOrEmpty($FilterId) -eq $false)
         {
