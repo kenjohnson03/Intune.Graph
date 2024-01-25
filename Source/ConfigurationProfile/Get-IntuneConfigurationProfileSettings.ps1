@@ -42,20 +42,25 @@ function Get-IntuneConfigurationProfileSettings
 
         $graphVersion = "beta"
     }
-    process {
-        
-
-        $response = Invoke-MgRestMethod -Method Get -Uri "$uri/$graphVersion/deviceManagement/configurationPolicies('$Id')/settings" -OutputType Json | ConvertFrom-Json
+    process {   
 
         $settings = @()
-        foreach($setting in $response.value)
-        {            
-            $newSetting = [PSCustomObject]@{                
-                "@odata.type" = "#microsoft.graph.deviceManagementConfigurationSetting"  
-                settingInstance = $setting.settingInstance                
+        $uri = "$uri/$graphVersion/deviceManagement/configurationPolicies('$Id')/settings"
+        do 
+        {
+            $response = Invoke-MgRestMethod -Method Get -Uri $uri -OutputType Json | ConvertFrom-Json
+            $uri = $response.'@odata.nextLink'
+
+            foreach($setting in $response.value)
+            {            
+                $newSetting = [PSCustomObject]@{                
+                    "@odata.type" = "#microsoft.graph.deviceManagementConfigurationSetting"  
+                    settingInstance = $setting.settingInstance                
+                }
+                $settings += $newSetting
             }
-            $settings += $newSetting
-        }
+        } while ($null -ne $uri)
+        
         return  $settings
     }
 }
