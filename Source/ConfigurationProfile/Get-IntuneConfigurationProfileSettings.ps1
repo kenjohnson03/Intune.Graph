@@ -48,7 +48,7 @@ function Get-IntuneConfigurationProfileSettings
         $reqeustUri     = "$uri/$graphVersion/deviceManagement/configurationPolicies('$Id')/settings"
 
         do{
-            $response = Invoke-MgRestMethod -Method Get -Uri $reqeustUri -OutputType JSON | convertFrom-json
+            $response = Invoke-MgRestMethod -Method GET -Uri $reqeustUri | ConvertTo-Json -Depth 50 | ConvertFrom-Json
             $configurations += $response.value
             $reqeustUri = $response.'@odata.nextLink'
         }while($null -ne $reqeustUri)
