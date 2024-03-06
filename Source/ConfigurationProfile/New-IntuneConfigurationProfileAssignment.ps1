@@ -32,16 +32,21 @@
 function New-IntuneConfigurationProfileAssignment
 {
     param (
+        [Parameter(Mandatory, ParameterSetName="Group", Position=0, HelpMessage="Configuration Profile Id")]
+        [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=0, HelpMessage="Configuration Profile Id")]
+        [Parameter(Mandatory, ParameterSetName="PSObject", Position=0, HelpMessage="Configuration Profile Id")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
+        [string]$Id,
         [Parameter(Mandatory, ParameterSetName="Group", Position=0)]
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=0)]
-        [ValidatePattern("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$", ErrorMessage="Must be a valid GUID")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
         [string]$GroupId,
         [Parameter(Mandatory, ParameterSetName="Group", Position=1)]
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=1)]
         [ValidateSet("include", "exclude")]
         [string]$IncludeExcludeGroup,
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter")]
-        [ValidatePattern("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$", ErrorMessage="Must be a valid GUID")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
         [string]$FilterId,
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter")]
         [ValidateSet("include","exclude")]
@@ -53,7 +58,11 @@ function New-IntuneConfigurationProfileAssignment
     }
     process 
     {
-        $type = $IncludeExcludeGroup -eq "include" ? "#microsoft.graph.groupAssignmentTarget" : "#microsoft.graph.exclusionGroupAssignmentTarget"
+        If ($IncludeExcludeGroup -eq "include"){
+            $type = "#microsoft.graph.groupAssignmentTarget"
+        }else{
+            $type = "#microsoft.graph.exclusionGroupAssignmentTarget"
+        }
 
         if([string]::IsNullOrEmpty($FilterType))
         {
