@@ -64,18 +64,18 @@ function Add-IntuneConfigurationProfileAssignment
         [Parameter(Mandatory, ParameterSetName="Group", Position=0, HelpMessage="Configuration Profile Id")]
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=0, HelpMessage="Configuration Profile Id")]
         [Parameter(Mandatory, ParameterSetName="PSObject", Position=0, HelpMessage="Configuration Profile Id")]
-        [ValidatePattern("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$", ErrorMessage="Must be a valid GUID")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
         [string]$Id,   
         [Parameter(Mandatory, ParameterSetName="Group", Position=1)]
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=1)]
-        [ValidatePattern("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$", ErrorMessage="Must be a valid GUID")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
         [string]$GroupId,
         [Parameter(Mandatory, ParameterSetName="Group", Position=2)]
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter", Position=2)]
         [ValidateSet("include", "exclude")]
         [string]$IncludeExcludeGroup,
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter")]
-        [ValidatePattern("^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$", ErrorMessage="Must be a valid GUID")]
+        [ValidateScript({$GUIDRegex = "^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$";If ($_ -match $GUIDRegex){return $true}throw "'$_': This is not a valid GUID format"})]
         [string]$FilterId,
         [Parameter(Mandatory, ParameterSetName="GroupAndFilter")]
         [ValidateSet("include","exclude")]
@@ -121,11 +121,11 @@ function Add-IntuneConfigurationProfileAssignment
         }
         elseif($PSBoundParameters.ContainsKey("FilterType"))
         {
-            $assignments += New-IntuneConfigurationProfileAssignment -GroupId $GroupId -IncludeExcludeGroup $IncludeExcludeGroup -FilterId $FilterId -FilterType $FilterType
+            $assignments += New-IntuneConfigurationProfileAssignment -Id $Id -GroupId $GroupId -IncludeExcludeGroup $IncludeExcludeGroup -FilterId $FilterId -FilterType $FilterType
         }
         else 
         {
-            $assignments += New-IntuneConfigurationProfileAssignment -GroupId $GroupId -IncludeExcludeGroup $IncludeExcludeGroup 
+            $assignments += New-IntuneConfigurationProfileAssignment -id $Id -GroupId $GroupId -IncludeExcludeGroup $IncludeExcludeGroup 
         }
 
         $body = @{

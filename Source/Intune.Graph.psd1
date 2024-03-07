@@ -12,7 +12,7 @@
 RootModule = 'Intune.Graph.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.35'
+ModuleVersion = '0.0.37'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -78,7 +78,8 @@ FunctionsToExport = 'Invoke-GraphBatchRequest', 'New-GraphBatchRequest',
                'Get-IntuneConfigurationProfileAssignments', 
                'New-IntuneConfigurationProfile', 
                'New-IntuneConfigurationProfileAssignment', 
-               'Remove-IntuneConfigurationProfile', 
+               'Remove-IntuneConfigurationProfile',
+               "Remove-IntuneConfigurationProfileAssignment",
                'Sync-IntuneConfigurationProfileSettings', 
                'Update-IntuneConfigurationProfile', 
                'Get-IntuneDeviceConfiguration', 
