@@ -7,6 +7,13 @@ function New-IntuneTrustedCertificateConfiguration
         [Parameter(ParameterSetName="CertFilePath")]
         [Parameter(ParameterSetName="CertProviderPath")]
         [string]$Description,
+        [ValidateSet(
+            "windows10",
+            "iOS",
+            "androidEnterpriseFullyManaged",
+            "macOS"    
+        )]
+        [string]$Platform="windows10",
         [Parameter(ParameterSetName="CertFilePath")]
         [string]$CertFilePath,
         [Parameter(ParameterSetName="CertProviderPath")]
@@ -52,12 +59,32 @@ function New-IntuneTrustedCertificateConfiguration
             $body.roleScopeTagIds = $RoleScopeTagIds
         }
 
-        switch($CertStore)
+        if(-not [string]::IsNullOrEmpty($CertFileName))
         {
-            "ComputerCertStoreRoot" { $body.destinationStore = "computerCertStoreRoot" }
-            "ComputerCertStoreIntermediate" { $body.destinationStore = "computerCertStoreIntermediate" }
-            "UserCertificateStoreIntermediate" { $body.destinationStore = "userCertificateStoreIntermediate" }
+            $body.certFileName = $CertFileName
         }
+        else
+        {
+            $body.certFileName = "cert.cer"
+        }
+
+        switch($Platform)
+        {
+            "windows10" { $body["@odata.type"] = "#microsoft.graph.windows81TrustedRootCertificate" }
+            "iOS" { $body["@odata.type"] = "#microsoft.graph.iosTrustedRootCertificate" }
+            "androidEnterpriseFullyManaged" { $body["@odata.type"] = "#microsoft.graph.androidDeviceOwnerTrustedRootCertificate" }
+            "macOS" { $body["@odata.type"] = "#microsoft.graph.macOSTrustedRootCertificate" }
+        }
+
+        if($Platform -eq "windows10")
+        {
+            switch($CertStore)
+            {
+                "ComputerCertStoreRoot" { $body.destinationStore = "computerCertStoreRoot" }
+                "ComputerCertStoreIntermediate" { $body.destinationStore = "computerCertStoreIntermediate" }
+                "UserCertificateStoreIntermediate" { $body.destinationStore = "userCertificateStoreIntermediate" }
+            }
+        }        
 
         if($CertFilePath)
         {
@@ -85,8 +112,7 @@ function New-IntuneTrustedCertificateConfiguration
         $certBase64 = [System.Convert]::ToBase64String($contentInBytes)
 
         $body.id = [Guid]::Empty.ToString()
-        $body["@odata.type"] = "#microsoft.graph.windows81TrustedRootCertificate"
-        $body.certFileName = "cert.cer"
+        
         $body.trustedRootCertificate = $certBase64
 
         $response = Invoke-MgRestMethod -Method Post -Uri "$uri/$graphVersion/deviceManagement/deviceConfigurations" -Body ($body | ConvertTo-Json -Depth 50) -ContentType "application/json" -OutputType Json | ConvertFrom-Json
