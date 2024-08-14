@@ -14,10 +14,6 @@ function Get-IntuneDeviceConfiguration
         [switch]$All
     )
     begin {
-        if($false -eq (Initialize-IntuneAccess -Scopes @("DeviceManagementConfiguration.Read.All") -Modules @("Microsoft.Graph.Authentication") -Environment $Environment))
-        {
-            return
-        }
         
         switch ($Environment) {
             "USGov" { $uri = "https://graph.microsoft.us" }
@@ -26,7 +22,6 @@ function Get-IntuneDeviceConfiguration
         }
 
         $graphVersion = "beta"
-        $resource = "deviceManagement/deviceConfigurations"
 
         # No parameters specified, return all
         if($PSBoundParameters.Count -eq 0)
@@ -39,7 +34,7 @@ function Get-IntuneDeviceConfiguration
         if($All)
         {
             $configurations = @()
-            $reqeustUri = "$uri/$graphVersion/$resource"
+            $reqeustUri = "$uri/$graphVersion/deviceManagement/deviceConfigurations"
             do 
             {
                 $response = Invoke-MgRestMethod -Method Get -Uri $reqeustUri -OutputType Json | ConvertFrom-Json -Depth 50
@@ -55,7 +50,7 @@ function Get-IntuneDeviceConfiguration
         {
 
             $configurations = @()
-            $reqeustUri = "$uri/$graphVersion/$resource?`$Filter=startswith(name,'$Name')"
+            $reqeustUri = "$uri/$graphVersion/deviceManagement/deviceConfigurations?`$filter=startswith(displayName,'$Name')"
             do 
             {
                 $response = Invoke-MgRestMethod -Method Get -Uri $reqeustUri -OutputType Json | ConvertFrom-Json -Depth 50
