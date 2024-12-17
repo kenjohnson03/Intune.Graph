@@ -69,42 +69,37 @@ RequiredModules = @('Microsoft.Graph.Authentication')
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Invoke-GraphBatchRequest', 'New-GraphBatchRequest', 
-                #CompliancePolicies
-                'Add-IntuneCompliancePolicyAssignment',
-                'Backup-IntuneCompliancePolicy',
-                'Get-IntuneCompliancePolicy',
-                'Get-IntuneCompliancePolicyAssignments',
-                'New-IntuneCompliancePolicyAssignment',
-                'Remove-IntuneCompliancePolicy',
-                #ConfigurationProfiles
-               'Add-IntuneConfigurationProfileAssignment', 
-               'Backup-IntuneConfigurationProfile', 
-               'Compare-IntuneConfigurationProfileSettings', 
-               'Get-IntuneConfigurationProfile',                
-               'Get-IntuneConfigurationProfileAssignments', 
-               'Get-IntuneConfigurationProfileSettings', 
-               'New-IntuneConfigurationProfile', 
-               'New-IntuneConfigurationProfileAssignment', 
-               'Remove-IntuneConfigurationProfile',
-               'Remove-IntuneConfigurationProfileAssignment',
-               'Sync-IntuneConfigurationProfileSettings', 
-               'Update-IntuneConfigurationProfile', 
-               #DeviceConfigurations
-               'Get-IntuneDeviceConfiguration', 
-               'New-IntuneDeviceConfigurationWindows81TrustedRootCertificate',
-               'New-IntuneTrustedCertificate',
-               'Remove-IntuneDeviceConfiguration',
-               #Filters               
-               'Get-IntuneFilter', 
-               'New-IntuneFilter', 
-               'Remove-IntuneFilter', 
-               #ManagedDevices
-               'Set-PrimaryUser', 
-               #Tags
-               'Get-IntuneTag', 
-               'New-IntuneTag', 
-               'Remove-IntuneTag'
+FunctionsToExport = "Invoke-GraphBatchRequest",
+    "New-GraphBatchRequest",
+    "Add-IntuneCompliancePolicyAssignment",
+    "Backup-IntuneCompliancePolicy",
+    "Get-IntuneCompliancePolicy",
+    "Get-IntuneCompliancePolicyAssignments",
+    "New-IntuneCompliancePolicyAssignment",
+    "Remove-IntuneCompliancePolicyAssignment",
+    "Add-IntuneConfigurationProfileAssignment",
+    "Backup-IntuneConfigurationProfile",
+    "Compare-IntuneConfigurationProfileSettings",
+    "Get-IntuneConfigurationProfile",
+    "Get-IntuneConfigurationProfileAssignments",
+    "Get-IntuneConfigurationProfileSettings",
+    "New-IntuneConfigurationProfile",
+    "New-IntuneConfigurationProfileAssignment",
+    "Remove-IntuneConfigurationProfile",
+    "Remove-IntuneConfigurationProfileAssignment",
+    "Sync-IntuneConfigurationProfileSettings",
+    "Update-IntuneConfigurationProfile",
+    "Get-IntuneDeviceConfiguration",
+    "New-IntuneDeviceConfigurationWindows81TrustedRootCertificate",
+    "New-IntuneTrustedCertificate",
+    "Remove-IntuneDeviceConfiguration",
+    "Get-IntuneFilter",
+    "New-IntuneFilter",
+    "Remove-IntuneFilter",
+    "Set-PrimaryUser",
+    "Get-IntuneTag",
+    "New-IntuneTag",
+    "Remove-IntuneTag"
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

@@ -24,7 +24,7 @@ Update-ModuleManifest -Path $ModuleManifestPath -Author "Ken Johnson"
 Update-ModuleManifest -Path $ModuleManifestPath -CompanyName "Ken Johnson"
 Update-ModuleManifest -Path $ModuleManifestPath -Description "IntuneGraph is a PowerShell module that makes it easy to work with the Microsoft Graph API from PowerShell. It handles the HTTP connection, and provides an object-oriented wrapper around the Graph API endpoints. It also provides some additional functionality that makes working with Intune in the Graph API from PowerShell a breeze."
 #Update-ModuleManifest -Path $ModuleManifestPath -RequiredModules @()
-Update-ModuleManifest -Path $ModuleManifestPath -Tags 'Intune','Graph','ConfigurationProfile','PowerShell'
+Update-ModuleManifest -Path $ModuleManifestPath -Tags 'Intune','Graph','ConfigurationProfile','CompliancePolicy','PowerShell'
 Update-ModuleManifest -Path $ModuleManifestPath -ProjectUri "https://github.com/kenjohnson03/Intune.Graph"
 Update-ModuleManifest -Path $ModuleManifestPath -ReleaseNotes ""
 
