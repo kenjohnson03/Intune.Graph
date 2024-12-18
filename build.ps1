@@ -13,6 +13,8 @@ param (
 )
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
+import-module PowerShellGet -MinimumVersion 2.0.0 -Force
+Import-PackageProvider -Name PowerShellGet -MinimumVersion 2.0.0 -Force
 
 # Update Module Manifest
 $ModuleManifestPath = "$scriptPath\Source\Intune.Graph.psd1"
@@ -56,10 +58,9 @@ if($false -eq $SkipPublishModule)
         Repository = "PSGallery"
         Tags = $PublishData.PSData.Tags
         ProjectUri = $PublishData.PSData.ProjectUri
-        Force = $true
     }
     # Publish module
-    Publish-Module @PublishParameters
+    Publish-Module @PublishParameters 
 }
 
 if($KeepOutput -eq $false)
