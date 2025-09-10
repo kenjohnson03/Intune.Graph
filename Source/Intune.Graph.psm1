@@ -93,6 +93,8 @@ Export-ModuleMember -Function "Invoke-GraphBatchRequest",
 "Set-PrimaryUser",
 "Get-IntuneTag",
 "New-IntuneTag",
-"Remove-IntuneTag"
+"Remove-IntuneTag",
+"Copy-IntuneConfigurationProfile",
+"Copy-IntuneRemediationScript"
     
     

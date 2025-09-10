@@ -91,7 +91,8 @@ FunctionsToExport = 'Invoke-GraphBatchRequest', 'New-GraphBatchRequest',
                'New-IntuneDeviceConfigurationWindows81TrustedRootCertificate', 
                'New-IntuneTrustedCertificate', 'Remove-IntuneDeviceConfiguration', 
                'Get-IntuneFilter', 'New-IntuneFilter', 'Remove-IntuneFilter', 
-               'Set-PrimaryUser', 'Get-IntuneTag', 'New-IntuneTag', 'Remove-IntuneTag'
+               'Set-PrimaryUser', 'Get-IntuneTag', 'New-IntuneTag', 'Remove-IntuneTag', 'Copy-IntuneConfigurationProfile', 
+	       'Copy-IntuneRemediationScript'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
