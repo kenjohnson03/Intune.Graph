@@ -71,7 +71,8 @@ RequiredModules = @(@{ModuleName = 'Microsoft.Graph.Authentication'; RequiredVer
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Invoke-GraphBatchRequest', 'New-GraphBatchRequest', 
                'Add-IntuneCompliancePolicyAssignment', 
-               'Backup-IntuneCompliancePolicy', 'Get-IntuneCompliancePolicy', 
+               'Backup-IntuneCompliancePolicy', 'Copy-IntuneCompliancePolicy', 
+               'Get-IntuneCompliancePolicy', 
                'Get-IntuneCompliancePolicyAssignments', 
                'New-IntuneCompliancePolicyAssignment', 
                'Remove-IntuneCompliancePolicyAssignment', 
