@@ -1,5 +1,4 @@
-# If your ConfigProfile helpers already defined Get-AllPages and Resolve-ScopeTags,
-# we won't redefine them here. Otherwise, provide simple versions.
+# Private\Remediation.Clone.Helpers.ps1
 
 if (-not (Test-Path function:\Get-AllPages)) {
     function Get-AllPages {

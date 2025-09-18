@@ -24,12 +24,16 @@
 
 .EXAMPLE
     # Interactive picker
-    Copy-IntuneRemediationScript -SourceScopeTagName "GCC" -DestinationScopeTagName "GCC","AESS"
+    Copy-IntuneRemediationScript -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO","USA"
 
 .EXAMPLE
     # Clone by name (skip picker)
-    Copy-IntuneRemediationScript -SourceScopeTagName "GCC" -DestinationScopeTagName "GCC","AESS" `
-                                 -RemediationName "Send Compliance Log","Windows 11 Remediation Script"
+    Copy-IntuneRemediationScript -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO","USA" `
+                                 -RemediationName "Windows 11 Remediation Script"
+
+.EXAMPLE
+    # Preview changes with WhatIf
+    Copy-IntuneRemediationScript -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO" -WhatIf
 
 .NOTES
     Required Graph scopes:

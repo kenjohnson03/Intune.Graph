@@ -8,10 +8,10 @@
     applies the union of source + -DestinationScopeTagName tags. Supports Global, USGov, USGovDoD.
 
 .PARAMETER SourceScopeTagName
-    Display name of the source scope tag to search for (e.g., "GCC").
+    Display name of the source scope tag to search for (e.g., "DEV").
 
 .PARAMETER DestinationScopeTagName
-    One or more scope tag display names to apply to the clone (e.g., "AESS","GCC").
+    One or more scope tag display names to apply to the clone (e.g., "PRO","USA").
 
 .PARAMETER ProfileName
     Exact policy/intent name(s) to clone directly (skip the picker). If omitted, an interactive picker is shown.
@@ -21,11 +21,15 @@
 
 .EXAMPLE
     # Interactive picker
-    Copy-IntuneConfigurationProfile -SourceScopeTagName "GCC" -DestinationScopeTagName "AESS","GCC"
+    Copy-IntuneConfigurationProfile -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO","USA"
 
 .EXAMPLE
     # Clone by name (skip picker)
-    Copy-IntuneConfigurationProfile -SourceScopeTagName "GCC" -DestinationScopeTagName "AESS" -ProfileName "USA-PRO-AV POLICY"
+    Copy-IntuneConfigurationProfile -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO" -ProfileName "USA-PRO-AV POLICY"
+
+.EXAMPLE
+    # Preview changes with WhatIf
+    Copy-IntuneConfigurationProfile -SourceScopeTagName "DEV" -DestinationScopeTagName "PRO" -WhatIf
 
 .NOTES
     Required Graph scopes:
