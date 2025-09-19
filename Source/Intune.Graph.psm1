@@ -96,7 +96,11 @@ Export-ModuleMember -Function "Invoke-GraphBatchRequest",
 "New-IntuneTag",
 "Remove-IntuneTag",
 "Copy-IntuneConfigurationProfile",
+"Add-IntuneRemediationScriptAssignment",
 "Copy-IntuneRemediationScript",
+"Get-IntuneRemediationScript",
+"Get-IntuneRemediationScriptAssignments",
+"Remove-IntuneRemediationScriptAssignment",
 "Update-DeviceExtensionAttributes"
     
     
